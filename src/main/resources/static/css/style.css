@@ -1,0 +1,18 @@
+/* Font Family */
+@import url("https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css");
+
+@font-face {
+  font-family: "Freesentation-9Black";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2")
+    format("woff2");
+  font-weight: 900;
+  font-style: normal;
+}
+
+body {
+  font-family: "NanumSquare", sans-serif; /*나눔고딕*/
+}
+
+.brand-text {
+  font-family: "Freesentation-9Black", sans-serif;
+}

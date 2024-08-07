@@ -1,0 +1,27 @@
+/* 기본 스타일 */
+.nav-link {
+  position: relative;
+  text-decoration: none;
+  color: #333333; /* 기본 링크 색상 */
+  padding-bottom: 0.5rem; /* 링크 아래 여백 */
+}
+
+/* 하단 border 스타일 */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px; /* border의 두께 */
+  background-color: #333333; /* border 색상 */
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out; /* 서서히 나타나도록 설정 */
+}
+
+/* 마우스 오버 시 border 보이기 */
+.nav-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}

@@ -1,0 +1,76 @@
+<!-- navbar -->
+<nav
+  class="navbar navbar-expand-sm"
+  style="background-color: #ffffff"
+  th:fragment="navbar"
+>
+  <div class="container-fluid">
+    <a class="navbar-brand ms-2 me-5" href="/">
+      <img
+        src="/icons/book-solid.svg"
+        alt="Logo"
+        width="30"
+        height="24"
+        class="d-inline-block align-text-top"
+      />
+      <b class="brand-text">Summary</b>
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav me-auto mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="/learn/challenges?order=recent"
+            >문제 풀기</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/skill_check">스킬 체크</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">시험 보기</a>
+        </li>
+      </ul>
+      <!-- Auth -->
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/accounts/sign_in">로그인</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- 라이트한 navbar -->
+<nav
+  class="navbar navbar-expand-sm"
+  style="background-color: #f8fafc"
+  th:fragment="navbar_light"
+>
+  <div class="container-fluid">
+    <a class="navbar-brand ms-2 me-5" href="/">
+      <img
+        src="/icons/book-solid.svg"
+        alt="Logo"
+        width="30"
+        height="24"
+        class="d-inline-block align-text-top"
+      />
+      <b class="brand-text">Summary</b>
+    </a>
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="">갸아악</a>
+      </li>
+    </ul>
+  </div>
+</nav>
