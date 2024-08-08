@@ -26,40 +26,27 @@
 
     <div class="container mt-1">
       <table class="table table-striped table-hover">
-        <th>
-          <td style="width: 400px;"><b>제목</b></td>
-          <td><b>평균 점수</b></td>
-          <td><b>완료한 사람</b></td>
-          <td><b>카테고리</b></td>
-        </th>
-        <tr>
-          <td></td>
-          <td><a href="/learn/summary">기술 발전의 패러다임 전환과 사회적 영향</a></td>
-          <td>0</td>
-          <td>0</td>
-          <td>0</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td><a href="/learn/summary">기술 발전의 패러다임 전환과 사회적 영향</a></td>
-          <td>0</td>
-          <td>0</td>
-          <td>0</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td><a href="/learn/summary">기술 발전의 패러다임 전환과 사회적 영향</a></td>
-          <td>0</td>
-          <td>0</td>
-          <td>0</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td><a href="/learn/summary">기술 발전의 패러다임 전환과 사회적 영향</a></td>
-          <td>0</td>
-          <td>0</td>
-          <td>0</td>
-        </tr>
+        <thead>
+          <tr>
+            <th style="width: 400px"><b>제목</b></th>
+            <th><b>평균 점수</b></th>
+            <th><b>완료한 사람</b></th>
+            <th><b>카테고리</b></th>
+          </tr>
+        </thead>
+        <div th:each="paragraph : ${paragraphs}">
+          <tr>
+            <td>
+              <a
+                th:href="@{'/learn/summary?id=' + ${paragraph.id}}"
+                th:text="${paragraph.title}"
+              ></a>
+            </td>
+            <td th:text="${paragraph.avgScore}"></td>
+            <td th:text="${paragraph.count}"></td>
+            <td th:text="${paragraph.categoryId}"></td>
+          </tr>
+        </di>
       </table>
     </div>
 
