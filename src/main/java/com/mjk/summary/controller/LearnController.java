@@ -1,6 +1,7 @@
 package com.mjk.summary.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +34,10 @@ public class LearnController {
 
     @GetMapping("/summary")
     public String getSummaryPage(@RequestParam(name = "id", required = true) Integer id, Model model) {
-        System.out.println(id);
+        Optional<Paragraph> optionalParagraph = learnService.getParagraphById(id);
+        // Optional에서 실제 값을 추출
+        Paragraph paragraph = optionalParagraph.orElse(null);
+        model.addAttribute("paragraph", paragraph);
         return "learn/summary.html";
     }
 
