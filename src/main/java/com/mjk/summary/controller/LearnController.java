@@ -13,11 +13,12 @@ public class LearnController {
             @RequestParam(name = "order", required = false, defaultValue = "recent") String order,
             @RequestParam(name = "category", required = false, defaultValue = "all") String category,
             @RequestParam(name = "page", required = false, defaultValue = "1") Integer page) {
-
-        System.out.println(order);
-        System.out.println(category);
-        System.out.println(page);
         return "learn/challenge_list.html";
+    }
+
+    @GetMapping("/summary")
+    public String getSummaryPage() {
+        return "learn/summary.html";
     }
 
 }
