@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.ToString;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 
 @Entity
 @Table(name = "users")
@@ -24,9 +23,6 @@ public class Users {
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "enum('male','female','other','prefer_not_to_say') default 'prefer_not_to_say'")
     private Gender gender;
-
-    @Column(name = "joinAt", columnDefinition = "timestamp default CURRENT_TIMESTAMP")
-    private Timestamp joinAt;
 
     @Column(length = 255)
     private String email;

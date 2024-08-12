@@ -75,6 +75,44 @@
               required
             />
           </div>
+          <button class="btn btn-primary w-100 mt-2">중복 확인</button>
+        </div>
+        <div class="mb-5">
+          <label for="birthdate" class="form-label">생년월일</label>
+          <div class="input-group">
+            <span class="input-group-text"
+              ><i class="fas fa-calendar-alt"></i
+            ></span>
+            <input
+              type="date"
+              name="birth"
+              class="form-control"
+              id="birth"
+              style="padding: 10px"
+              required
+            />
+          </div>
+        </div>
+        <div class="mb-5">
+          <label for="gender" class="form-label">성별</label>
+          <div class="input-group">
+            <span class="input-group-text"
+              ><i class="fas fa-genderless"></i
+            ></span>
+            <select
+              name="gender"
+              id="gender"
+              class="form-select"
+              aria-label="성별 선택"
+              style="padding: 10px"
+              required
+            >
+              <option value="PREFER_NOT_TO_SAY" selected>선택하지 않음</option>
+              <option value="MALE">남성</option>
+              <option value="FEMAIL">여성</option>
+              <option value="OTHER">기타</option>
+            </select>
+          </div>
         </div>
         <div class="mb-3">
           <label for="email" class="form-label">비밀번호</label>
@@ -138,56 +176,6 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-    <script>
-      var pwCheck = false; // 비밀번호 일치여부
-      var pwRegex = false; // 비밀번호 정규식 검사
-
-      function setButtonState() {
-        document.getElementById("sign-up-btn").disabled = !(pwCheck && pwRegex);
-      }
-
-      // 이메일 형식 검사
-      function validateEmail() {}
-
-      // 비밀번호 형식 검사
-      function validatePassword() {
-        const regex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[\W_])[a-zA-Z\d\W_]{8,20}$/;
-        const inputValue = document.getElementById("password").value;
-        const errorMessage = document.getElementById("password-regex");
-
-        if (regex.test(inputValue)) {
-          errorMessage.style.visibility = "hidden";
-          pwRegex = true;
-        } else {
-          errorMessage.style.visibility = "visible";
-          pwRegex = false;
-        }
-        setButtonState();
-      }
-
-      // 비밀번호 일치 검사
-      function validatePasswordCheck() {
-        const password = document.getElementById("password").value;
-        const passwordCheck = document.getElementById("password-check").value;
-        const errorMessage = document.getElementById("password-check-text");
-
-        if (password == passwordCheck) {
-          errorMessage.style.visibility = "hidden";
-          pwCheck = true;
-        } else {
-          errorMessage.style.visibility = "visible";
-          pwCheck = false;
-        }
-        setButtonState();
-      }
-
-      // 비밀번호 input내용이 변경될 때 마다 함수 실행
-      document
-        .getElementById("password")
-        .addEventListener("input", validatePassword);
-      document
-        .getElementById("password-check")
-        .addEventListener("input", validatePasswordCheck);
-    </script>
+    <script src="/scripts/sign_up.js"></script>
   </body>
 </html>
