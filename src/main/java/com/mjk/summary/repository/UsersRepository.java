@@ -7,5 +7,6 @@ import com.mjk.summary.model.Users;
 
 @Repository
 public interface UsersRepository extends JpaRepository<Users, String> {
-    // 필요하다면 추가적인 쿼리 메소드 정의
+    // 이메일 중복 확인
+    boolean existsByEmail(String email);
 }

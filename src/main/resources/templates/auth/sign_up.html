@@ -40,7 +40,7 @@
       <p class="text-center fw-bold mb-3" style="font-size: 20px">
         이메일 회원가입
       </p>
-      <form method="post" action="/" id="login-form">
+      <form method="post" action="/accounts/sign_up" id="login-form">
         <div class="mb-5">
           <label for="email" class="form-label">이름</label>
           <div class="input-group">
@@ -59,7 +59,7 @@
             />
           </div>
         </div>
-        <div class="mb-5">
+        <div class="mb-4">
           <label for="email" class="form-label">이메일</label>
           <div class="input-group">
             <span class="input-group-text"
@@ -75,7 +75,21 @@
               required
             />
           </div>
-          <button class="btn btn-primary w-100 mt-2">중복 확인</button>
+          <button
+            class="btn btn-primary w-100 mt-2"
+            id="duplicate"
+            type="button"
+            onclick="duplicateEmail()"
+          >
+            중복 확인
+          </button>
+          <p
+            style="color: red; visibility: hidden"
+            class="pt-1"
+            id="email-duplicate"
+          >
+            가입된 이메일이 존재합니다!
+          </p>
         </div>
         <div class="mb-5">
           <label for="birthdate" class="form-label">생년월일</label>

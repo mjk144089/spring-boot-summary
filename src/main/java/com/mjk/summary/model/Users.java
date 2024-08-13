@@ -27,7 +27,7 @@ public class Users {
     @Column(length = 255)
     private String email;
 
-    @Column(name = "profile_img", length = 255)
+    @Column(name = "profile_img", columnDefinition = "text")
     private String profileImg;
 
     @Column(name = "is_social_login", columnDefinition = "tinyint(1) default '0'")
