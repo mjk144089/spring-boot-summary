@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseToken;
 import com.google.firebase.auth.UserRecord;
 import com.mjk.summary.model.Users;
 import com.mjk.summary.repository.UsersRepository;
@@ -61,14 +63,12 @@ public class AuthService {
                     .bodyToMono(String.class)
                     .block(); // 동기적으로 결과를 기다립니다
 
-            user.setProfileImg(imageUrl); // 응답에서 이미지 URL을 설정합니다
+            user.setProfileImg(imageUrl); // user데이터에 프로필 이미지를 설정합니다
         } catch (Exception e) {
-            // 기타 예외 처리
-            System.err.println("An unexpected error occurred: " + e.getMessage());
-            // 적절한 예외 처리를 수행합니다
             throw new RuntimeException("An unexpected error occurred", e);
         }
 
+        // DB에 데이터를 저장하고, 저장된 엔티티를 반환합니다
         return usersRepository.save(user);
     }
 
@@ -80,5 +80,17 @@ public class AuthService {
      */
     public Boolean checkEmailDuplicate(String email) {
         return usersRepository.existsByEmail(email);
+    }
+
+    /**
+     * Firebase AccessToken의 유효성을 검사합니다
+     * 
+     * @param idToken firebase의 accessToken
+     * @return 사용자 uid
+     * @throws FirebaseAuthException
+     */
+    public String verifyFirebaseAccessToken(String idToken) throws FirebaseAuthException {
+        FirebaseToken verifiedToken = firebaseAuth.verifyIdToken(idToken);
+        return verifiedToken.getUid();
     }
 }
