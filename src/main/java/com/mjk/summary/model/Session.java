@@ -17,13 +17,16 @@ import lombok.ToString;
 @Data
 public class Session {
     @Id
-    @Column(name = "sessionId", nullable = false, length = 255)
-    private String sessionId;
+    @Column(name = "uid")
+    private String uid;
 
-    @ManyToOne
-    @JoinColumn(name = "uid", referencedColumnName = "uid", nullable = true)
-    private Users user;
+    @Column(name = "sessionId", nullable = false, length = 255, unique = true)
+    private String sessionId;
 
     @Column(name = "expiration", nullable = false)
     private LocalDateTime expiration;
+
+    @ManyToOne
+    @JoinColumn(name = "uid", insertable = false, updatable = false, referencedColumnName = "uid")
+    private Users user;
 }

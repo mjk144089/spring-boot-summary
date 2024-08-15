@@ -49,7 +49,7 @@ login_btn.addEventListener("click", (e) => {
           })
             .then((response) => response.text())
             .then((data) => {
-              location.href = "/";
+              console.log(data);
             });
         });
       })

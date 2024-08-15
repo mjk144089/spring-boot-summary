@@ -82,16 +82,20 @@ public class AuthController {
                 String uid = authService.verifyFirebaseAccessToken(idToken);
 
                 // 세션 값 생성 및 저장
+                String sessionId = authService.generateSessionId(uid);
 
                 // 사용자 정보 가져오기
+                Users user = authService.findUserById(uid);
+                System.out.println("user : " + user);
+                System.out.println("sessionId : " + sessionId);
 
+                return ResponseEntity.ok(sessionId);
             } else {
                 return ResponseEntity.status(HttpStatusCode.valueOf(400)).body("토큰이 없어야");
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatusCode.valueOf(400)).body("토큰이 이상해야");
         }
-        return ResponseEntity.ok("로그인 완료");
     }
 
 }

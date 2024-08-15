@@ -7,5 +7,5 @@ import com.mjk.summary.model.Session;
 
 @Repository
 public interface SessionRepository extends JpaRepository<Session, String> {
-
+    Session findBySessionId(String sessionId);
 }

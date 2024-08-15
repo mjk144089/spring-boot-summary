@@ -1,6 +1,8 @@
 package com.mjk.summary.service;
 
+import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -9,7 +11,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
 import com.google.firebase.auth.UserRecord;
+import com.mjk.summary.model.Session;
 import com.mjk.summary.model.Users;
+import com.mjk.summary.repository.SessionRepository;
 import com.mjk.summary.repository.UsersRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -20,6 +24,7 @@ import reactor.core.publisher.Mono;
 public class AuthService {
     private final FirebaseAuth firebaseAuth;
     private final UsersRepository usersRepository;
+    private final SessionRepository sessionRepository;
 
     private final WebClient webClient;
 
@@ -92,5 +97,43 @@ public class AuthService {
     public String verifyFirebaseAccessToken(String idToken) throws FirebaseAuthException {
         FirebaseToken verifiedToken = firebaseAuth.verifyIdToken(idToken);
         return verifiedToken.getUid();
+    }
+
+    /**
+     * 임의의 세션값을 생성하고, 그 값을 DB에 저장합니다
+     * 
+     * @param uid 사용자 uid
+     * @return sessionId 생성된 세션 Id
+     */
+    public String generateSessionId(String uid) {
+        try {
+            Session session = new Session();
+            Users user = usersRepository.findById(uid).orElse(null);
+            String uuid = UUID.randomUUID().toString();
+            LocalDateTime expirationDate = LocalDateTime.now().plusMonths(1);
+
+            session.setSessionId(uuid);
+            session.setUid(uid);
+            session.setExpiration(expirationDate);
+            session.setUser(user);
+
+            sessionRepository.save(session);
+
+            return uuid;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * uid값을 통해 사용자의 정보를 반환합니다
+     * 
+     * @param uid 사용자 uid
+     * @return users테이블에 저장된 정보
+     */
+    public Users findUserById(String uid) {
+        Users user = usersRepository.findById(uid).orElse(null);
+        return user;
     }
 }

@@ -34,6 +34,6 @@ public class Users {
     private boolean isSocialLogin;
 
     public enum Gender {
-        MALE, FEMALE, OTHER, PREFER_NOT_TO_SAY
+        male, female, other, prefer_not_to_say
     }
 }
