@@ -47,9 +47,16 @@ login_btn.addEventListener("click", (e) => {
             },
             body: JSON.stringify({}),
           })
-            .then((response) => response.text())
+            .then(async (response) => await response.json())
             .then((data) => {
-              console.log(data);
+              if (data.sessionId) {
+                sessionStorage.setItem("sessionId", data.sessionId);
+                sessionStorage.setItem("user", JSON.stringify(data.user));
+
+                location.href = "/";
+              } else {
+                location.href = "/error";
+              }
             });
         });
       })

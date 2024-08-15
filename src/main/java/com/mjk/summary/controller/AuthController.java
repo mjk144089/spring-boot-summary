@@ -1,5 +1,9 @@
 package com.mjk.summary.controller;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,6 +16,7 @@ import com.mjk.summary.model.Users;
 import com.mjk.summary.service.AuthService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -65,7 +70,9 @@ public class AuthController {
     }
 
     @PostMapping("/sign_in")
-    public ResponseEntity<String> handleSignInByEmailAndPassword(HttpServletRequest request)
+    public ResponseEntity<Map<String, Object>> handleSignInByEmailAndPassword(
+            HttpServletRequest request,
+            HttpServletResponse response)
             throws FirebaseAuthException {
         /**
          * 1. 클라이언트가 보낸 토큰 검증
@@ -86,15 +93,26 @@ public class AuthController {
 
                 // 사용자 정보 가져오기
                 Users user = authService.findUserById(uid);
-                System.out.println("user : " + user);
-                System.out.println("sessionId : " + sessionId);
+                Map<String, Object> responseBody = new HashMap<>();
+                responseBody.put("sessionId", sessionId);
 
-                return ResponseEntity.ok(sessionId);
+                Map<String, Object> userMap = new HashMap<>();
+                userMap.put("name", user.getName());
+                userMap.put("birth", user.getBirth());
+                userMap.put("email", user.getEmail());
+                userMap.put("gender", user.getGender());
+                userMap.put("profileImg", user.getProfileImg());
+                userMap.put("socialLogin", user.isSocialLogin());
+                responseBody.put("user", userMap);
+
+                return ResponseEntity.ok(responseBody);
             } else {
-                return ResponseEntity.status(HttpStatusCode.valueOf(400)).body("토큰이 없어야");
+                return ResponseEntity.status(HttpStatusCode.valueOf(400))
+                        .body(Collections.singletonMap("error", "토큰 없음"));
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatusCode.valueOf(400)).body("토큰이 이상해야");
+            return ResponseEntity.status(HttpStatusCode.valueOf(400))
+                    .body(Collections.singletonMap("error", "토큰이 유효하지 않음"));
         }
     }
 
