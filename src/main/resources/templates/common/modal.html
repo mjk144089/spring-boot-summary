@@ -19,18 +19,19 @@
         ></button>
       </div>
       <div class="modal-body" style="color: #333333">
-        <p id="response-value">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Necessitatibus ratione provident neque sapiente ducimus quas,
-          accusamus laboriosam dolorum ex at perferendis cumque consequatur
-          eveniet minus nesciunt sit. Impedit, omnis unde?
-        </p>
+        <p id="response-value"></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           닫기
         </button>
-        <button type="button" class="btn btn-success">결과 저장</button>
+        <form action="/learn/summaries" method="post" id="saveForm">
+          <input type="hidden" name="inputValue" id="inputValue" />
+          <input type="hidden" name="score" id="score" />
+          <input type="hidden" name="paragraphId" id="paragraphId" />
+          <input type="hidden" name="session" id="session" />
+          <button type="submit" class="btn btn-success">결과 저장</button>
+        </form>
       </div>
     </div>
   </div>

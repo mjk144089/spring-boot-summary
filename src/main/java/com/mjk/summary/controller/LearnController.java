@@ -10,15 +10,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mjk.summary.model.Paragraph;
+import com.mjk.summary.model.Summaries;
+import com.mjk.summary.service.AuthService;
 import com.mjk.summary.service.LearnService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequestMapping("/learn")
 @RequiredArgsConstructor
 public class LearnController {
     private final LearnService learnService;
+    private final AuthService authService;
 
     @GetMapping("/challenges")
     public String getChallengesPage(
@@ -38,6 +43,38 @@ public class LearnController {
         Paragraph paragraph = optionalParagraph.orElse(null);
         model.addAttribute("paragraph", paragraph);
         return "learn/summary.html";
+    }
+
+    @PostMapping("/summaries")
+    public String handleFormSubmit(
+            @RequestParam("inputValue") String inputValue,
+            @RequestParam("score") int score,
+            @RequestParam("paragraphId") int paragraphId,
+            @RequestParam("session") String session) {
+        try {
+            Summaries summaries = new Summaries();
+
+            // uid를 찾습니다
+            String uid = authService.findUidBySessionId(session);
+            if (uid == null) {
+                return "/error";
+            } else {
+                summaries.setUid(uid);
+            }
+
+            // 값을 지정합니다
+            summaries.setParagraphId(paragraphId);
+            summaries.setScore(score);
+            summaries.setUserWrittenText(inputValue);
+
+            // DB에 저장합니다
+            Summaries temp = learnService.saveUserWritten(summaries);
+
+            return "fo/main.html";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "/error";
+        }
     }
 
 }

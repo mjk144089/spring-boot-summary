@@ -136,4 +136,15 @@ public class AuthService {
         Users user = usersRepository.findById(uid).orElse(null);
         return user;
     }
+
+    /**
+     * SessionId를 통해 uid를 찾습니다
+     * 
+     * @param sessionId 세션ID
+     * @return uid
+     */
+    public String findUidBySessionId(String sessionId) {
+        Session session = sessionRepository.findBySessionId(sessionId);
+        return session.getUid();
+    }
 }

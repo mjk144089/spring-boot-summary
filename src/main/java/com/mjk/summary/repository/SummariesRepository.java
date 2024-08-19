@@ -7,5 +7,5 @@ import com.mjk.summary.model.Summaries;
 
 @Repository
 public interface SummariesRepository extends JpaRepository<Summaries, Integer> {
-
+    Summaries findByParagraphIdAndUid(int paragraphId, String uid);
 }

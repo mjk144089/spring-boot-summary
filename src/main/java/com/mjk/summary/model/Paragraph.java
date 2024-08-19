@@ -30,4 +30,7 @@ public class Paragraph {
 
     @Column(name = "category_id")
     private Integer categoryId;
+
+    @Column(name = "model_answer", nullable = false)
+    private String modelAnswer;
 }
