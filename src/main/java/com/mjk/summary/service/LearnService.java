@@ -41,4 +41,11 @@ public class LearnService {
             return summariesRepository.save(summaries);
         }
     }
+
+    /**
+     * paragraph ID값을 이용하여 사람들의 요약 내역을 불러옵니다
+     */
+    public List<Summaries> getSummariesByParagraphId(int paragraph_id) {
+        return summariesRepository.findByParagraphId(paragraph_id);
+    }
 }

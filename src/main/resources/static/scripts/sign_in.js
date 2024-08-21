@@ -39,7 +39,7 @@ login_btn.addEventListener("click", (e) => {
 
         // IdToken을 가져와서 서버로 전송
         user.getIdToken().then(async (idToken) => {
-          await fetch("http://localhost:8080/accounts/sign_in", {
+          await fetch("http://localhost:8080/accounts/sign-in", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

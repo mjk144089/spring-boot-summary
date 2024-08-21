@@ -27,17 +27,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class AuthController {
     private final AuthService authService;
 
-    @GetMapping("/sign_in")
+    @GetMapping("/sign-in")
     public String getSignInPage() {
         return "auth/sign_in.html";
     }
 
-    @GetMapping("/sign_up")
+    @GetMapping("/sign-up")
     public String getSignUpPage() {
         return "auth/sign_up.html";
     }
 
-    @PostMapping("/sign_up")
+    @PostMapping("/sign-up")
     public String handleSignUpByEmailAndPassword(Users user, @RequestParam(name = "password") String password) {
         try {
             // firebase에 새로운 사용자를 생성합니다
@@ -69,7 +69,7 @@ public class AuthController {
         return ResponseEntity.ok(condition ? "true" : "false");
     }
 
-    @PostMapping("/sign_in")
+    @PostMapping("/sign-in")
     public ResponseEntity<Map<String, Object>> handleSignInByEmailAndPassword(
             HttpServletRequest request,
             HttpServletResponse response)

@@ -30,4 +30,8 @@ public class Summaries {
 
     @Column(name = "user_written_text", nullable = false, columnDefinition = "TEXT")
     private String userWrittenText; // 사용자가 작성한 글
+
+    @ManyToOne
+    @JoinColumn(name = "uid", insertable = false, updatable = false, referencedColumnName = "uid")
+    private Users user;
 }

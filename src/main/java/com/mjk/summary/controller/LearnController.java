@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -67,14 +68,22 @@ public class LearnController {
             summaries.setScore(score);
             summaries.setUserWrittenText(inputValue);
 
-            // DB에 저장합니다
+            // DB에 값을 저장합니다
             Summaries temp = learnService.saveUserWritten(summaries);
 
-            return "fo/main.html";
+            return "redirect:/learn/summaries-list/" + paragraphId;
         } catch (Exception e) {
             e.printStackTrace();
             return "/error";
         }
+    }
+
+    @GetMapping("/summaries-list/{paragraphId}")
+    public String getMethodName(@PathVariable(name = "paragraphId") int paragraphId, Model model) {
+        // 다른 사람들의 풀이를 확인할 수 있도록, DB에서 정보를 가져옵니다
+        List<Summaries> data = learnService.getSummariesByParagraphId(paragraphId);
+        model.addAttribute("data", data);
+        return "learn/summaries_list.html";
     }
 
 }
