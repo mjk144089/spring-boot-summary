@@ -48,4 +48,11 @@ public class LearnService {
     public List<Summaries> getSummariesByParagraphId(int paragraph_id) {
         return summariesRepository.findByParagraphId(paragraph_id);
     }
+
+    /**
+     * 사용자의 uid값을 이용하여 해당 사용자의 요약 내역을 불러옵니다
+     */
+    public List<Summaries> getSummariesByUid(String uid) {
+        return summariesRepository.findByUid(uid);
+    }
 }

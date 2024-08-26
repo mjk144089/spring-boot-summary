@@ -8,6 +8,7 @@ import {
 const auth = getAuth(app);
 
 var login_btn = document.getElementById("login-btn");
+var google_login_btn = document.getElementById("google");
 
 login_btn.addEventListener("click", (e) => {
   e.preventDefault();
@@ -74,4 +75,50 @@ login_btn.addEventListener("click", (e) => {
         login_btn.disabled = false;
       });
   }
+});
+
+google_login_btn.addEventListener("click", (e) => {
+  e.preventDefault();
+  const provider = new GoogleAuthProvider();
+
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      const user = result.user;
+      user.getIdToken().then(async (idToken) => {
+        await fetch("http://localhost:8080/accounts/social-sign-in", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${idToken}`,
+          },
+          body: JSON.stringify({}),
+        })
+          .then(async (res) => {
+            if (res.status == 404) {
+              sessionStorage.setItem("t", idToken);
+              location.href = "/accounts/social-sign-up";
+              return;
+            } else {
+              const data = await res.json();
+              return data;
+            }
+          })
+          .then((data) => {
+            if (data.sessionId) {
+              sessionStorage.setItem("sessionId", data.sessionId);
+              sessionStorage.setItem("user", JSON.stringify(data.user));
+
+              location.href = "/";
+            } else {
+              location.href = "/error";
+            }
+          });
+      });
+    })
+    .catch((error) => {
+      var inputHelp = document.getElementById("input-help");
+      inputHelp.textContent =
+        "로그인에 문제가 발생했습니다. 다시 시도해 주세요";
+      inputHelp.style.display = "block";
+    });
 });

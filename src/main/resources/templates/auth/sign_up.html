@@ -25,9 +25,6 @@
     </style>
   </head>
   <body>
-    <div class="container">
-      <div th:replace="~{ common/navbar.html::navbar_light }"></div>
-    </div>
     <div
       class="container mt-5 p-5"
       style="
@@ -121,9 +118,9 @@
               style="padding: 10px"
               required
             >
-              <option value="prefer-not-to-say" selected>선택하지 않음</option>
+              <option value="prefer_not_to_say" selected>선택하지 않음</option>
               <option value="male">남성</option>
-              <option value="femail">여성</option>
+              <option value="female">여성</option>
               <option value="other">기타</option>
             </select>
           </div>

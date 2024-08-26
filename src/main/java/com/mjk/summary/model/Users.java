@@ -14,7 +14,7 @@ public class Users {
     @Id
     private String uid;
 
-    @Column(nullable = false, length = 50, unique = true)
+    @Column(nullable = false, length = 50)
     private String name;
 
     @Column

@@ -13,4 +13,6 @@ public interface SummariesRepository extends JpaRepository<Summaries, Integer> {
     Summaries findByParagraphIdAndUid(int paragraphId, String uid);
 
     List<Summaries> findByParagraphId(int paragraphId);
+
+    List<Summaries> findByUid(String uid);
 }

@@ -110,7 +110,7 @@ public class AuthService {
             Session session = new Session();
             Users user = usersRepository.findById(uid).orElse(null);
             String uuid = UUID.randomUUID().toString();
-            LocalDateTime expirationDate = LocalDateTime.now().plusMonths(1);
+            LocalDateTime expirationDate = LocalDateTime.now().plusDays(1);
 
             session.setSessionId(uuid);
             session.setUid(uid);
@@ -146,5 +146,14 @@ public class AuthService {
     public String findUidBySessionId(String sessionId) {
         Session session = sessionRepository.findBySessionId(sessionId);
         return session.getUid();
+    }
+
+    /**
+     * 특정 Uid값을 가진 사용자를 삭제합니다
+     * 
+     * @param uid uid
+     */
+    public void DeleteAccountByUid(String uid) {
+        usersRepository.deleteById(uid);
     }
 }

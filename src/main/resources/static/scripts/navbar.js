@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const navbarAuth = document.querySelector(".navbar-nav.ms-auto");
   const sessionData = sessionStorage.getItem("user");
+  const session = sessionStorage.getItem("sessionId");
 
   if (sessionData) {
     // Parse user information from sessionStorage
@@ -12,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Create the profile link with image and name
     profileItem.innerHTML = `
-        <a class="nav-link d-flex align-items-center" href="#">
+        <a class="nav-link d-flex align-items-center" href="/accounts/my-page?t=${session}">
           <span class="me-2">${user.name}</span>
           <img src="${user.profileImg}" alt="Profile Image" width="30" height="30" class="rounded-circle" />
         </a>
