@@ -82,6 +82,11 @@ public class LearnController {
     public String getMethodName(@PathVariable(name = "paragraphId") int paragraphId, Model model) {
         // 다른 사람들의 풀이를 확인할 수 있도록, DB에서 정보를 가져옵니다
         List<Summaries> data = learnService.getSummariesByParagraphId(paragraphId);
+
+        // 문서의 데이터를 가져옵니다
+        List<Paragraph> paragraphs = learnService.getAllParagraphs();
+
+        model.addAttribute("paragraphs", paragraphs);
         model.addAttribute("data", data);
         return "learn/summaries_list.html";
     }

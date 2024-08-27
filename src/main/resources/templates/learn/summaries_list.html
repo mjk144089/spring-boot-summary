@@ -21,29 +21,51 @@
 
     <div class="container mt-1">
       <h4 class="mb-2 mt-2">다른 사용자의 풀이</h4>
-      <div th:each="summaries : ${data}">
-        <div class="card mb-3">
-          <div class="card-header">
-            <div class="d-flex align-items-center">
-              <img
-                th:src="${summaries.user.profileImg}"
-                alt="Profile Image"
-                width="30"
-                height="30"
-                class="rounded-circle"
-              />
-              <span class="ms-2 me-2" th:text="${summaries.user.name}"></span>
-              <span
-                class="ms-2 me-2"
-                th:text="'점수 : ' + ${summaries.score}"
-              ></span>
-            </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card mb-5">
+            <div class="card-header">제목</div>
+            <ul
+              class="list-group list-group-flush"
+              th:each="paragraph : ${paragraphs}"
+            >
+              <li
+                class="list-group-item btn btn-outline-secondary rounded-0"
+                th:onclick="'window.location.href=\'/learn/summaries-list/' + ${paragraph.id} + '\';'"
+                th:text="${paragraph.title}"
+              ></li>
+            </ul>
           </div>
-          <div class="card-body" style="background-color: #343a40">
-            <p
-              class="card-text text-white"
-              th:text="${summaries.userWrittenText}"
-            ></p>
+        </div>
+        <div class="col-md-8">
+          <div th:each="summaries : ${data}">
+            <div class="card mb-3">
+              <div class="card-header">
+                <div class="d-flex align-items-center">
+                  <img
+                    th:src="${summaries.user.profileImg}"
+                    alt="Profile Image"
+                    width="30"
+                    height="30"
+                    class="rounded-circle"
+                  />
+                  <span
+                    class="ms-2 me-2"
+                    th:text="${summaries.user.name}"
+                  ></span>
+                  <span
+                    class="ms-2 me-2"
+                    th:text="'점수 : ' + ${summaries.score}"
+                  ></span>
+                </div>
+              </div>
+              <div class="card-body" style="background-color: #343a40">
+                <p
+                  class="card-text text-white"
+                  th:text="${summaries.userWrittenText}"
+                ></p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

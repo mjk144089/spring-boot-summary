@@ -55,4 +55,12 @@ public class LearnService {
     public List<Summaries> getSummariesByUid(String uid) {
         return summariesRepository.findByUid(uid);
     }
+
+    /**
+     * 저장된 지문의 개수를 불러옵니다
+     * @return 저장된 지문 갯수
+     */
+    public int getParagraphCount() {
+        return paragraphRepository.findAll().size();
+    }
 }
